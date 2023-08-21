@@ -51,16 +51,18 @@ int handle_int(va_list arg)
 
 int _printf(const char *format, ...)
 {
-	int i, hajm = 0;
-	va_list argg;
+	int i, h = 0;
+	va_list a;
 
-	va_start(argg, format);
+	if (!format || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+	va_start(a, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
 			_putchar(format[i]);
-			hajm++;
+			h++;
 		}
 		else if (format[i] == '%')
 		{
@@ -68,26 +70,25 @@ int _printf(const char *format, ...)
 			{
 				_putchar('%');
 				i++;
-				hajm++;
+				h++;
 			}
 			else if (format[i + 1] == 'c')
 			{
-				hajm += handle_char(argg);
+				h += handle_char(a);
 				i++;
 			}
 			else if (format[i + 1] == 's')
 			{
-				hajm += handle_str(argg);
+				h += handle_str(a);
 				i++;
 			}
 			else if (format[i + 1] == 'i' || format[i + 1] == 'd')
 			{
-				hajm += handle_int(argg);
+				h += handle_int(a);
 				i++;
 			}
 		}
 	}
-
-	va_end(argg);
-	return (hajm);
+	va_end(a);
+	return (h);
 }
