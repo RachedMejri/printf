@@ -54,9 +54,9 @@ int _printf(const char *format, ...)
 	int i, h = 0;
 	va_list a;
 
+	va_start(a, format);
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	va_start(a, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
